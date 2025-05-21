@@ -1,0 +1,21 @@
+runtime: nodejs20
+instance_class: F1
+env_variables:
+  FIREBASE_PROJECT_ID: "webappp-460509"
+  FIREBASE_DATABASE_URL: "https://webappp-460509-default-rtdb.firebaseio.com"
+  GCS_BUCKET: "webappp-460509.firebasestorage.app"
+  NODE_ENV: "production"
+handlers:
+  # Xử lý các tệp tĩnh
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json|svg|woff|woff2|ttf|eot))
+    static_files: client-build/\1
+    upload: client-build/(.*\.(js|css|png|jpg|jpeg|gif|ico|json|svg|woff|woff2|ttf|eot))
+
+  # API routes
+  - url: /api/.*
+    script: auto
+
+  # Tất cả các routes khác trả về index.html
+  - url: /.*
+    static_files: client-build/index.html
+    upload: client-build/index.html
