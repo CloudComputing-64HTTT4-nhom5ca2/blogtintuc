@@ -66,7 +66,7 @@ WebAPPP/
 1. Clone dự án:
 
    ```
-   git clone <repository-url>
+   git clone https://github.com/CloudComputing-64HTTT4-nhom5ca2/blogtintuc
    cd WebAPPP
    ```
 
