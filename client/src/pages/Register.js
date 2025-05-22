@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import '../styles/Auth.css';
 
 const Register = () => {
   const { register } = useAuth();
@@ -59,68 +60,67 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-form-container">
-        <h2 className="text-center mb-3">Đăng ký tài khoản</h2>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h2 className="auth-title">Đăng ký tài khoản</h2>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="auth-error">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="displayName">Họ và tên</label>
-            <input
-              type="text"
-              id="displayName"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Mật khẩu</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <small>Mật khẩu phải có ít nhất 6 ký tự.</small>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Xác nhận mật khẩu</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button type="submit" disabled={loading}>
-            {loading ? 'Đang đăng ký...' : 'Đăng ký'}
-          </button>
-        </form>
-
-        <div className="auth-links text-center mt-3">
-          <p>
-            Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
-          </p>
+        <div className="form-group">
+          <label htmlFor="displayName">Tên hiển thị</label>
+          <input
+            type="text"
+            id="displayName"
+            className="form-control"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+          />
         </div>
-      </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Mật khẩu</label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Xác nhận mật khẩu</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            className="form-control"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn-auth" disabled={loading}>
+          {loading ? 'Đang xử lý...' : 'Đăng ký'}
+        </button>
+
+        <div className="auth-footer">
+          <p>Đã có tài khoản? <Link to="/login" className="auth-link">Đăng nhập</Link></p>
+        </div>
+      </form>
     </div>
   );
 };

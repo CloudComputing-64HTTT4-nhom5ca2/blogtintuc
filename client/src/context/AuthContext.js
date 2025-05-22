@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile as firebaseUpdateProfile
 } from 'firebase/auth';
 import { ref, set, get } from 'firebase/database';
 import { auth, database } from '../firebase';
@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
       const user = userCredential.user;
 
       // Cập nhật displayName
-      await updateProfile(user, { displayName });
+      await firebaseUpdateProfile(user, { displayName });
 
       // Lưu thông tin người dùng vào Realtime Database
       await set(ref(database, `users/${user.uid}`), {
@@ -67,6 +67,13 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const updateProfile = async (profileData) => {
+    if (currentUser) {
+      await firebaseUpdateProfile(currentUser, profileData);
+      setCurrentUser({ ...currentUser, ...profileData });
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -91,7 +98,8 @@ export function AuthProvider({ children }) {
     register,
     login,
     logout,
-    isAdmin: userRole === 'admin'
+    isAdmin: userRole === 'admin',
+    updateProfile
   };
 
   return (

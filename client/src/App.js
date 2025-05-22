@@ -10,12 +10,16 @@ import CreatePost from './pages/admin/CreatePost';
 import EditPost from './pages/admin/EditPost';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import EditProfile from './pages/EditProfile';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Search from './pages/Search';
+import ManageComments from './pages/admin/ManageComments';
+import ManageUsers from './pages/admin/ManageUsers';
+import Settings from './pages/admin/Settings';
 import './App.css';
 
 function AppContent() {
@@ -136,6 +140,7 @@ function AppContent() {
               <Profile />
             </ProtectedRoute>
           } />
+          <Route path="/profile/edit" element={<EditProfile />} />
 
           {/* Trang Admin */}
           <Route path="/admin" element={
@@ -156,6 +161,21 @@ function AppContent() {
           <Route path="/admin/posts/edit/:id" element={
             <AdminRoute>
               <EditPost />
+            </AdminRoute>
+          } />
+          <Route path="/admin/comments" element={
+            <AdminRoute>
+              <ManageComments />
+            </AdminRoute>
+          } />
+          <Route path="/admin/users" element={
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          } />
+          <Route path="/admin/settings" element={
+            <AdminRoute>
+              <Settings />
             </AdminRoute>
           } />
 

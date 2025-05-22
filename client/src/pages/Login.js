@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import '../styles/Auth.css';
 
 const Login = () => {
   const { login } = useAuth();
@@ -50,45 +51,43 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <div className="auth-form-container">
-        <h2 className="text-center mb-3">Đăng nhập</h2>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h2 className="auth-title">Đăng nhập</h2>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="auth-error">{error}</div>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Mật khẩu</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button type="submit" disabled={loading}>
-            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-          </button>
-        </form>
-
-        <div className="auth-links text-center mt-3">
-          <p>
-            Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
-          </p>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            className="form-control"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Mật khẩu</label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn-auth" disabled={loading}>
+          {loading ? 'Đang xử lý...' : 'Đăng nhập'}
+        </button>
+
+        <div className="auth-footer">
+          <p>Chưa có tài khoản? <Link to="/register" className="auth-link">Đăng ký</Link></p>
+        </div>
+      </form>
     </div>
   );
 };
